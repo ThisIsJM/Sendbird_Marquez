@@ -5,7 +5,7 @@ import { AppUser, generateAppUser } from '@/utils/utils';
 import { SendBirdProvider } from '@sendbird/uikit-react';
 import { useEffect, useState } from 'react';
 
-const appId: string = process.env.DEV_APP_ID ?? ''
+const appId: string = "8056AAA9-9594-4FE3-90AA-218173F46E42"
 
 export default function Home() {
 
