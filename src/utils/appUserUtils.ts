@@ -1,4 +1,5 @@
 import * as crypto from 'crypto';
+
 export interface AppUser{
 
     id: string,
@@ -6,16 +7,6 @@ export interface AppUser{
     profileUrl: string,
     deleted: boolean,
     dateCreated: Date,
-}
-
-export interface AppChannel{
-
-    url: string,
-    createdById: string,
-    chatMateId: string,
-    deleted: boolean,
-    messageCount: number,
-    dateCreated: Date
 }
 
 //GENERATE RANDOM USER
@@ -31,9 +22,6 @@ export function generateAppUser(): AppUser{
 
     return appUser;
 }
-
-
-
 
 export function generateRandomUserId(): string {
     
