@@ -1,5 +1,5 @@
 "use client"
-import { AppChannel } from '@/utils'
+import { AppChannel } from '@/utils/utils'
 import { Channel, ChannelList } from '@sendbird/uikit-react'
 import React, { useEffect, useState } from 'react'
 

@@ -1,7 +1,7 @@
 'use client'
 import SendbirdApp from "@sendbird/uikit-react/App";
 import CustomizedApp from '@/components/CustomizedApp';
-import { AppUser, generateAppUser } from '@/utils';
+import { AppUser, generateAppUser } from '@/utils/utils';
 import { SendBirdProvider } from '@sendbird/uikit-react';
 import { useEffect, useState } from 'react';
 
