@@ -33,8 +33,7 @@ export function generateAppUser(): AppUser{
 }
 
 
-//GENERATING USER ID
-const secretKey = 'yourSecretKey';
+
 
 export function generateRandomUserId(): string {
     
@@ -50,7 +49,7 @@ export function generateRandomUserId(): string {
 }
 
 function hashUserId(userId: string): string {
-  const hmac = crypto.createHmac('sha256', secretKey);
+  const hmac = crypto.createHmac('sha256', process.env.DEV_USER_ID_KEY ?? '');
   hmac.update(userId);
   return hmac.digest('hex');
 }
