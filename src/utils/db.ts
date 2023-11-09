@@ -1,15 +1,15 @@
 import { Pool } from "pg";
 
 
-let conn;
+let conn:  Pool | undefined;
 
 if (!conn) {
   conn = new Pool({
-    user: process.env.PGSQL_USER,
-    password: process.env.PGSQL_PASSWORD,
-    host: process.env.PGSQL_HOST,
-    port: parseInt(process.env.PGSQL_PORT ?? ''),
-    database: process.env.PGSQL_DATABASE,
+    user: process.env.DEV_PGSQL_USER,
+    password: process.env.DEV_PGSQL_PASSWORD,
+    host: process.env.DEV_PGSQL_HOST,
+    port: parseInt(process.env.DEV_PGSQL_PORT ?? ''),
+    database: process.env.DEV_PGSQL_DATABASE,
   });
 }
 

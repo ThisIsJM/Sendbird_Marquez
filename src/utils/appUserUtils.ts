@@ -9,6 +9,34 @@ export interface AppUser{
     dateCreated: Date,
 }
 
+export async function saveAppUserToDb(appUser: AppUser){
+    const options = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            id: appUser.id,
+            name: appUser.name,
+            profileUrl: appUser.profileUrl,
+            deleted: appUser.deleted,
+            dateCreated: appUser.dateCreated
+        })
+    }
+
+    console.log(JSON.stringify({
+        id: appUser.id,
+        name: appUser.name,
+        profileUrl: appUser.profileUrl,
+        deleted: appUser.deleted,
+        dateCreated: appUser.dateCreated
+    }))
+
+    const response = await fetch('/api/appuser/',options)
+
+    console.log(response)
+}
+
 //GENERATE RANDOM USER
 export function generateAppUser(): AppUser{
 
