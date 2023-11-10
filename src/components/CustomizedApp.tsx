@@ -1,5 +1,5 @@
 "use client"
-import { AppChannel } from '@/utils/appChannelUtils'
+import { AppChannel, addChannelToDb } from '@/utils/appChannelUtils'
 import { Channel, ChannelList } from '@sendbird/uikit-react'
 import React, { useEffect, useState } from 'react'
 import { ChannelListProvider } from '@sendbird/uikit-react/ChannelList/context';
@@ -36,6 +36,7 @@ export default function CustomizedApp({appUser, setShowUserProfile}: {appUser: A
             dateCreated: new Date()
         }
 
+        addChannelToDb(channel);
         setAddedUser('')
     },[currentChannel])
 
@@ -48,7 +49,6 @@ export default function CustomizedApp({appUser, setShowUserProfile}: {appUser: A
                         setCurrentChannel(channel?.url?? "")
                     }}
                     allowProfileEdit={true}
-                    // renderUserProfile={(props) => <CustomHeader props = {props}/>}
                     renderHeader={() => <CustomHeader appUser={appUser} setShowUserProfile={setShowUserProfile}/>}
                     onBeforeCreateChannel={createChannel}
                 />
