@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
+import Cookies from 'universal-cookie';
 
 export interface AppUser{
 
@@ -25,14 +26,25 @@ export async function saveAppUserToDb(appUser: AppUser){
     }
 
     const response = await fetch('/api/appuser/',options)
-    console.log(response)
+    const responseData = await response.json();
+    console.log(responseData)
+
+    if(responseData.token){
+        //SAVE TOKEN TO COOKIES
+        const cookies = new Cookies();
+        cookies.set("jwt", responseData.token)
+    }
 }
 
 export async function editAppUserToDb(id: string, name: string, profileUrl: string){
+
+    const cookies = new Cookies()
+
     const options = {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${cookies.get("jwt")}`
         },
         body: JSON.stringify({
             id: id,

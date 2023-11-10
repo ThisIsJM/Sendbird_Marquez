@@ -1,5 +1,4 @@
 'use client'
-import SendbirdApp from "@sendbird/uikit-react/App";
 import CustomizedApp from '@/components/CustomizedApp';
 import { SendBirdProvider } from '@sendbird/uikit-react';
 import { useEffect, useState } from 'react';
@@ -14,11 +13,12 @@ export default function Home() {
     const [theme, setTheme] = useState<"light" | "dark" | undefined>("light")
 
     const [showUserProfile, setShowUserProfile] = useState<boolean>(false)
-    // useEffect(() => {
-    //     saveAppUserToDb(appUser)
-    // },[])
+    useEffect(() => {
+        saveAppUserToDb(appUser)
+    },[])
 
     useEffect(() => {
+
       editAppUserToDb(appUser.id, appUser.name, appUser.profileUrl)
     },[appUser])
 

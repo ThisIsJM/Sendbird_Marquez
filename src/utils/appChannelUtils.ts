@@ -1,3 +1,5 @@
+import Cookies from "universal-cookie"
+
 export interface AppChannel{
 
     url: string,
@@ -11,10 +13,13 @@ export interface AppChannel{
 
 export const addChannelToDb = async(channel: AppChannel) => {
 
+    const cookies = new Cookies()
+    
     const options = {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${cookies.get("jwt")}`
         },
         body: JSON.stringify({
             url: channel.url,
