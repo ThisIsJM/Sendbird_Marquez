@@ -30,7 +30,7 @@ function HeaderButton({id, nickname, profileUrl, setShowUserProfile}: {id: strin
         <Image src={profileUrl} alt={'user profile'} height={25} width={100} className=' rounded-[50%] h-10 w-10'/>
         <div className="flex flex-col ">
             <p className="text-black font-semibold">{nickname}</p>
-            <p className="text-gray-500 text-ellipsis text-xs">{id}</p>
+            <p className="text-gray-500 text-xs truncate">{id}</p>
         </div>
     </div>)
 }

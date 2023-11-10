@@ -1,4 +1,4 @@
-import * as crypto from 'crypto';
+import { v4 as uuidv4 } from 'uuid';
 
 export interface AppUser{
 
@@ -49,7 +49,7 @@ export async function editAppUserToDb(id: string, name: string, profileUrl: stri
 export function generateAppUser(): AppUser{
 
     const appUser : AppUser = {
-        id: generateRandomUserId(),
+        id: uuidv4(),
         name: "John Doe",
         profileUrl: "https://source.unsplash.com/random/?city,night",
         deleted: false,
@@ -57,23 +57,4 @@ export function generateAppUser(): AppUser{
     }
 
     return appUser;
-}
-
-export function generateRandomUserId(): string {
-    
-    const length = 10
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let userId = '';
-    
-    for (let i = 0; i < length; i++) {
-        const randomIndex = Math.floor(Math.random() * characters.length);
-        userId += characters[randomIndex];
-    }
-    return hashUserId(userId);
-}
-
-function hashUserId(userId: string): string {
-  const hmac = crypto.createHmac('sha256', process.env.DEV_USER_ID_KEY ?? '');
-  hmac.update(userId);
-  return hmac.digest('hex');
 }
