@@ -2,8 +2,12 @@
 import { AppChannel } from '@/utils/appChannelUtils'
 import { Channel, ChannelList } from '@sendbird/uikit-react'
 import React, { useEffect, useState } from 'react'
+import { ChannelListProvider } from '@sendbird/uikit-react/ChannelList/context';
+import CustomHeader from './CustomHeader';
+import { AppUser } from '@/utils/appUserUtils';
 
-export default function CustomizedApp({userId}: {userId: string}) {
+
+export default function CustomizedApp({appUser, setShowUserProfile}: {appUser: AppUser, setShowUserProfile: any}) {
 
     const [currentChannel, setCurrentChannel] = useState<string>("")
     const [addedUser, setAddedUser] = useState<string>()
@@ -18,19 +22,14 @@ export default function CustomizedApp({userId}: {userId: string}) {
             invitedUserIds: users
         }
     }
-
-    function updateUser(user: any){
-        
-    }
-
     useEffect(() => {
 
         //MAKES SURE TO ONLY RUN WHEN ADDED USER IS UPDATED OR NOT EMPTY
-        if(!addedUser || !userId) return
+        if(!addedUser || !appUser) return
 
         const channel : AppChannel = {
             url: currentChannel,
-            createdById: userId,
+            createdById: appUser.id,
             chatMateId: addedUser,
             deleted: false,
             messageCount: 0,
@@ -43,13 +42,17 @@ export default function CustomizedApp({userId}: {userId: string}) {
   return (
     <div className = "flex flex-row h-full">
         <div>
-            <ChannelList
-                onChannelSelect={(channel) => {
-                    setCurrentChannel(channel?.url?? "")
-                }}
-                onBeforeCreateChannel={createChannel}
-                onProfileEditSuccess={updateUser}
-            />
+            <ChannelListProvider>
+                <ChannelList
+                    onChannelSelect={(channel) => {
+                        setCurrentChannel(channel?.url?? "")
+                    }}
+                    allowProfileEdit={true}
+                    // renderUserProfile={(props) => <CustomHeader props = {props}/>}
+                    renderHeader={() => <CustomHeader appUser={appUser} setShowUserProfile={setShowUserProfile}/>}
+                    onBeforeCreateChannel={createChannel}
+                />
+            </ChannelListProvider>    
         </div>
         <Channel channelUrl={currentChannel}/>
     </div>

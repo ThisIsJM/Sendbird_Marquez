@@ -4,33 +4,31 @@ import CustomizedApp from '@/components/CustomizedApp';
 import { SendBirdProvider } from '@sendbird/uikit-react';
 import { useEffect, useState } from 'react';
 import { AppUser, generateAppUser, saveAppUserToDb } from "@/utils/appUserUtils";
+import UserProfileModal from "@/components/UserProfileModal";
 
 const appId: string = "8056AAA9-9594-4FE3-90AA-218173F46E42"
 
 export default function Home() {
 
-    const [appUser, setAppuser] = useState<AppUser>(generateAppUser())
+    const [appUser, setAppUser] = useState<AppUser>(generateAppUser())
+    const [theme, setTheme] = useState<"light" | "dark" | undefined>("light")
+
+    const [showUserProfile, setShowUserProfile] = useState<boolean>(false)
+    // useEffect(() => {
+    //     saveAppUserToDb(appUser)
+    // },[])
 
     useEffect(() => {
-        saveAppUserToDb(appUser)
-    },[])
+        console.log(appUser)
+    },[appUser])
 
   return (
     <div className="App">
-    <SendBirdProvider appId={appId} userId={appUser.id} nickname={appUser.name} profileUrl={appUser.profileUrl} allowProfileEdit={true}  >
-      <CustomizedApp userId={appUser.id}/>
+    <SendBirdProvider appId={appId} userId={appUser.id} nickname={appUser.name} profileUrl={appUser.profileUrl} theme={theme}>
+      <CustomizedApp appUser={appUser} setShowUserProfile={setShowUserProfile}/>
+      <UserProfileModal appUser={appUser} setAppUser={setAppUser} setTheme={setTheme} showUserProfile={showUserProfile} setShowUserProfile={setShowUserProfile}/>
     </SendBirdProvider>
   </div>
     
   )
 }
-
-
-//     <SendbirdApp 
-//     appId={appId} 
-//     userId={appUser.id} 
-//     nickname= {appUser.name}
-//     profileUrl={appUser.profileUrl}
-//     allowProfileEdit = {true}
-    
-// />
