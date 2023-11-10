@@ -24,16 +24,24 @@ export async function saveAppUserToDb(appUser: AppUser){
         })
     }
 
-    console.log(JSON.stringify({
-        id: appUser.id,
-        name: appUser.name,
-        profileUrl: appUser.profileUrl,
-        deleted: appUser.deleted,
-        dateCreated: appUser.dateCreated
-    }))
+    const response = await fetch('/api/appuser/',options)
+    console.log(response)
+}
+
+export async function editAppUserToDb(id: string, name: string, profileUrl: string){
+    const options = {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            id: id,
+            name: name,
+            profileUrl: profileUrl,
+        })
+    }
 
     const response = await fetch('/api/appuser/',options)
-
     console.log(response)
 }
 

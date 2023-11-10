@@ -3,7 +3,7 @@ import SendbirdApp from "@sendbird/uikit-react/App";
 import CustomizedApp from '@/components/CustomizedApp';
 import { SendBirdProvider } from '@sendbird/uikit-react';
 import { useEffect, useState } from 'react';
-import { AppUser, generateAppUser, saveAppUserToDb } from "@/utils/appUserUtils";
+import { AppUser, editAppUserToDb, generateAppUser, saveAppUserToDb } from "@/utils/appUserUtils";
 import UserProfileModal from "@/components/UserProfileModal";
 
 const appId: string = "8056AAA9-9594-4FE3-90AA-218173F46E42"
@@ -19,7 +19,7 @@ export default function Home() {
     // },[])
 
     useEffect(() => {
-        console.log(appUser)
+      editAppUserToDb(appUser.id, appUser.name, appUser.profileUrl)
     },[appUser])
 
   return (
